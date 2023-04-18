@@ -11,6 +11,7 @@ namespace BatchingWithContinuetion
     {
         void Execute(params string[] args);
     }
+
     public class ParsedDataDiffJob : IJob
     {
         public IEnumerable<DateRange> GetBatches(DateTime startDate, DateTime endDate, int daysPerBatch)
@@ -51,11 +52,11 @@ namespace BatchingWithContinuetion
             const string DATEFORMAT = "yyMMdd";
             var today = DateTime.Now.ToString("yyMMddHHmmss");
             // Set batch size and delay time
-            int daysPerBatch = Convert.ToInt32(args[0]); //100
+            int daysPerBatch = Convert.ToInt32(args[0]);  
             DateTime startDate = Convert.ToDateTime(args[1]);
             DateTime endDate = Convert.ToDateTime(args[2]).AddDays(1);
 
-            string lastRunId = args.Length == 4 ? args[3] : null; //<runDate:yyyyyMMDDhhmmsstt>_<startDate>_<endDate>
+            string lastRunId = args.Length == 4 ? args[3] : null;  
 
             string currentRunIdFormat;
             if (string.IsNullOrWhiteSpace(lastRunId))
@@ -66,7 +67,7 @@ namespace BatchingWithContinuetion
                 startDate = DateTime.ParseExact(lastRunId.Split('_')[2], DATEFORMAT, System.Globalization.CultureInfo.InvariantCulture);
             }
 
-            if (startDate >= endDate)
+            if (startDate > endDate)
             {
                 throw new ArgumentException("Either provided date range is not correct, or excution was completed successfully. if you want execute for " +
                     "same date range again re-run this job without setting LastRunId parameter");

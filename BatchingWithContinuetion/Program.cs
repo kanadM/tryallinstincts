@@ -11,11 +11,10 @@ namespace BatchingWithContinuetion
     {
         static void Main(string[] args)
         {
-            string startDate = "2023-03-24";
+            string startDate = "2023-03-30";
             string endDate = "2023-03-30";
-            string daysPerBatch = "1";
-            string lastRunId = "230330134257_230330_230331";
-            //string lastRunId = "230330134257_230327_230328";
+            string daysPerBatch = "2";
+            string lastRunId = null;// "230330142002_230324_230326";
             var job = new ParsedDataDiffJob();
             job.Execute(daysPerBatch, startDate, endDate, lastRunId);
             Console.ReadLine();
