@@ -18,7 +18,7 @@ namespace NetFramework4Console
             Interlocked.Exchange(ref _createPool, func);
         }
 
-        public static readonly int DefaultPoolSize = Environment.ProcessorCount;
+        public static readonly int DefaultPoolSize = 1;
         private static readonly string DefaultPoolName = "{AA316252-1D20-4607-A55A-293ED8D38CE9}";
         private static ReaderWriterLockSlim _lock = new ReaderWriterLockSlim();
         private static readonly Dictionary<string, ITaskPool> _pools = new Dictionary<string, ITaskPool>(StringComparer.OrdinalIgnoreCase);
@@ -63,7 +63,7 @@ namespace NetFramework4Console
             pool.Enqueue(action);
         }
 
-        private static ITaskPool GetPool(string name)
+        public static ITaskPool GetPool(string name)
         {
             ITaskPool pool = null;
             _lock.EnterUpgradeableReadLock();

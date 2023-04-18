@@ -10,6 +10,10 @@ namespace NetFramework4Console
         public readonly BlockingCollection<Action> _queue = null;
         private Task[] _tasks;
 
+        public int GetQueueSize()
+        {
+            return _queue.Count;
+        }
         public TaskPool(int size)
         {
             _queue = new BlockingCollection<Action>(new ConcurrentQueue<Action>());
@@ -33,6 +37,7 @@ namespace NetFramework4Console
                         {
                             try
                             {
+                                Thread.Sleep(1);
                                 work();
                             }
                             catch { }
